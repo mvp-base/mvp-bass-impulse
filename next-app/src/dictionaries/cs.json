@@ -1,0 +1,23 @@
+{
+  "home": {
+    "bio1": "Projekt, který založila skupina kamarádů se stejným zapálením do Drum and Bass. Brzy se k nim připojili stejně smýšlející DJs, kteří pomohli tento projekt vylepšit svými zkušenostmi.",
+    "bio2": "Už od začátku měli jasno, že chtějí být jiní než ostatní, a to selekcí headlinerů, subžánrů DnB a klubů.",
+    "bio3": "Nyní tvoří originální akce podle svých představ. Na každé akci od Bass Impulse máš jistotu šílených a nevšedních mixů, zajímavých headlinerů, originálních songů ze světa i z vlastní produkce a neutuchající zábavy."
+  },
+  "events": {
+    "transition": "UDÁLOSTI",
+    "heading": "Události"
+  },
+  "contact": {
+    "transition": "KONTAKTUJ NÁS",
+    "heading": "Napiš nám zprávu",
+    "name": "Celé jméno",
+    "namePlaceholder": "Jan Novák",
+    "email": "Email",
+    "emailPlaceholder": "priklad@domena.cz",
+    "message": "Zpráva",
+    "messagePlaceholder": "Napiš zprávu",
+    "copy": "Chci kopii",
+    "send": "Odeslat"
+  }
+}

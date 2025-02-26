@@ -1,0 +1,21 @@
+{
+  "home": {
+    "bio1": "We are a young collective creating a new community in the Czech Republic. This is not something you have ever seen before. This is something completely new."
+  },
+  "events": {
+    "transition": "EVENTS",
+    "heading": "Events"
+  },
+  "contact": {
+    "transition": "CONTACT US",
+    "heading": "Send a message",
+    "name": "Full name",
+    "namePlaceholder": "John Smith",
+    "email": "Email address",
+    "emailPlaceholder": "example@domain.com",
+    "message": "Message",
+    "messagePlaceholder": "Write a message",
+    "copy": "Send me a copy",
+    "send": "Send"
+  }
+}

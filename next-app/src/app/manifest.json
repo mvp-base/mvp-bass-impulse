@@ -1,0 +1,27 @@
+{
+  "name": "Bass Impulse",
+  "start_url": "/",
+  "short_name": "Bass Impulse",
+  "description": "Portal to the EDM world",
+  "categories": ["entertainment", "music", "social"],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon1.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon3.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

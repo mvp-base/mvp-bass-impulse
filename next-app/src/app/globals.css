@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+
+@font-face {
+  font-family: "trail";
+  src: url("../../public/assets/Trail.ttf");
+}
+
+@font-face {
+  font-family: "body";
+  src: url("../../public/assets/Barlow-Regular.ttf");
+}
+
+@font-face {
+  font-family: "display";
+  src: url("../../public/assets/Rowdies-Bold.ttf");
+}
+
+@font-face {
+  font-family: "header";
+  src: url("../../public/assets/Rowdies-Regular.ttf");
+}
+
+@font-face {
+  font-family: "header-light";
+  src: url("../../public/assets/Rowdies-Light.ttf");
+}
+
+@font-face {
+  font-family: "footer";
+  src: url("../../public/assets/Barlow-Thin.ttf");
+}
+
+
+/* 
+Trail = For arbitrary usage
+Barlow-Regular = Used for Body
+*/
+@layer base {
+  h1 {
+    font-family: "display", "sans";
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "header", "sans";
+  }
+
+  body {
+    font-family: "body", "sans";
+  }
+}
+
+/*Effects or animations */
+@layer utilities {
+  .hover-effect {
+    transition: transform 300ms ease-in-out, scale 300ms ease-in-out;
+  }
+
+  .hover-effect:hover {
+    transform: translateY(-5px) scale(1);
+  }
+}
+
+.outline-text {
+  color: transparent;
+  text-shadow: 0 0 0 #FFFFFF;
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
