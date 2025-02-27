@@ -15,7 +15,7 @@ jobs:
         run: |
           REQUIRED_SECRETS=(EXPOSED_PORT INTERNAL_PORT DOCKER_REPO SERVER_IP SSH_PRIVATE_KEY DOCKER_USERNAME DOCKER_PASSWORD)
           for SECRET in "${REQUIRED_SECRETS[@]}"; do
-            if [[ -z "${!SECRET}" ]]; then
+            if [[ -z "${{ secrets.$SECRET }}" ]]; then
               echo "❌ Missing required secret: $SECRET"
               exit 1
             fi
