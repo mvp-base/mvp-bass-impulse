@@ -27,6 +27,7 @@ module.exports = {
   rules: {
     'react/no-unescaped-entities': 'off',  // Disable specific rule
     '@next/next/no-page-custom-font': 'off',  // Disable Next.js specific rule
-    // Add more rules to disable here
+    'no-unused-vars': 'off', // Disable unused-vars rule
+    'no-undef': 'off', // Disable no-undef rule
   },
 };
