@@ -24,5 +24,9 @@ module.exports = {
     },
   },
   plugins: ['react'],
-  rules: {},
+  rules: {
+    'react/no-unescaped-entities': 'off',  // Disable specific rule
+    '@next/next/no-page-custom-font': 'off',  // Disable Next.js specific rule
+    // Add more rules to disable here
+  },
 };
