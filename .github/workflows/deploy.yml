@@ -89,7 +89,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.SERVER_IP }}
-          username: root
+          username: matejv
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             TAG_NAME="${GITHUB_REF#refs/tags/}"
