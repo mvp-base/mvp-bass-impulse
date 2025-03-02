@@ -96,8 +96,9 @@ jobs:
 
     steps: 
       - env:
-        TAG: ${{ needs.set_vals.outputs.tag }}
-        IMAGE_NAME: ${{ needs.set_vals.outputs.image_name }}
+          TAG: ${{ needs.set_vals.outputs.tag }}
+          IMAGE_NAME: ${{ needs.set_vals.outputs.image_name }}
+        run: echo "$TAG $IMAGE_NAME"
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
