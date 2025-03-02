@@ -63,6 +63,8 @@ jobs:
     needs: [check_secrets, set_vals]
 
     steps:
+      - name: Use Image Name
+        run: echo "Image name is ${{ needs.set_vals.outputs.image_name }}"
       - name: Checkout code
         uses: actions/checkout@v2
 
