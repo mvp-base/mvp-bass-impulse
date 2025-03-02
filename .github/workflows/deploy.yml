@@ -74,8 +74,13 @@ jobs:
     needs: [check_secrets, set_vals]
 
     steps:
+      - name: Debug Outputs
+        run: |
+          echo "Available outputs from set_vals: ${{ toJSON(needs.set_vals.outputs) }}"
+      
       - name: Use Image Name
         run: echo "Image name is ${{ needs.set_vals.outputs.image_name }}"
+      
       - name: Checkout code
         uses: actions/checkout@v2
 
