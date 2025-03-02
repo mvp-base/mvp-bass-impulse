@@ -90,6 +90,13 @@ jobs:
           CONTAINER_NAME="$(basename "${{ github.event.repository.name }}")"
           EXPOSED_PORT="${{ secrets.EXPOSED_PORT }}"
           INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
+          
+          echo "Resolved TAG_NAME: '$TAG_NAME'"
+          echo "Final IMAGE_NAME: '$IMAGE_NAME'"
+          echo "Final IMAGE_NAME: '$CONTAINER_NAME'"
+          echo "Final IMAGE_NAME: '$EXPOSED_PORT'"
+          echo "Final IMAGE_NAME: '$INTERNAL_PORT'"
+
 
           echo "Pulling Docker image: $IMAGE_NAME"
           docker pull "${IMAGE_NAME}"
