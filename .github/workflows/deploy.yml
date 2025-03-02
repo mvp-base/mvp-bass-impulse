@@ -57,29 +57,34 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract tag name
-        id: get_tag
-        run: echo "TAG_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-      - name: Build Docker image
-        id: build_image
+      - name: Set environment variables
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
           LOWER_REPO_NAME=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')
           IMAGE_NAME="${{ secrets.DOCKER_REPO }}/${LOWER_REPO_NAME}:${{ env.TAG_NAME }}"
+          echo "TAG_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
-          docker build -t "${IMAGE_NAME}" .
+      
+      - name: Build Docker image
+        run: |
+          docker build -t "${{ env.IMAGE_NAME }}" .
+
 
       - name: Push Docker image to Docker Hub
         run: |
-          IMAGE_NAME="${{ secrets.DOCKER_REPO }}/${{ github.event.repository.name }}:${{ env.TAG_NAME }}"
-          docker push "${IMAGE_NAME}"
+          docker push "${{ env.IMAGE_NAME }}"
 
   deploy:
     runs-on: ubuntu-latest
     needs: [build, check_secrets]
 
-    steps:
+    steps: 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
       - name: SSH to server and deploy
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -87,31 +92,14 @@ jobs:
           username: matejv
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Debugging the GITHUB_REF value
-            echo "GITHUB_REF=${{ github.ref }}"
-
-            # If GITHUB_REF is set, extract TAG_NAME
-            if [ -n "${{ github.ref }}" ]; then
-              TAG_NAME="${{ github.ref }}" 
-              TAG_NAME="${TAG_NAME##*/}"  # Extract the tag name
-            else
-              echo "Error: GITHUB_REF is not set"
-              exit 1
-            fi
-
-            echo "TAG_NAME=${TAG_NAME}"
-
-            # Construct the Docker image name
             IMAGE_NAME="${{ env.IMAGE_NAME }}"
             CONTAINER_NAME="$(basename "${{ github.repository }}")"
             EXPOSED_PORT="${{ secrets.EXPOSED_PORT }}"
             INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
 
-            # Print the Docker image being pulled
             echo "Pulling Docker image: $IMAGE_NAME"
             docker pull "${IMAGE_NAME}"
 
-            # Check if the container already exists
             echo "Checking if container $CONTAINER_NAME exists..."
             if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
               echo "Stopping and removing existing container..."
@@ -121,11 +109,9 @@ jobs:
               echo "No existing container found. Skipping stop and remove."
             fi
 
-            # Extract and set environment variables for the container
             echo "Extracting APP_ environment variables..."
             ENV_VARS=$(printenv | grep '^APP_' | awk '{print "-e " $1}')
 
-            # Run the new container
             echo "Running new container..."
             docker run -d \
               --restart unless-stopped \
