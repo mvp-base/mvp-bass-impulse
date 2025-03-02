@@ -62,13 +62,6 @@ jobs:
     needs: [check_secrets, set_vals]
 
     steps:
-      - name: Debug Outputs
-        run: |
-          echo "Available outputs from set_vals: ${{ toJSON(needs.set_vals.outputs) }}"
-      
-      - name: Use Image Name
-        run: echo "Image name is ${{ needs.set_vals.outputs.image_name }}"
-      
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -80,13 +73,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t "${{ needs.set_vals.outputs.image_name }}" .
+          docker build -t "${ secrets.DOCKER_REPO }/${{ needs.set_vals.outputs.image_name }}" .
 
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push "${{ needs.set_vals.outputs.image_name }}"
-
+          docker push "${ secrets.DOCKER_REPO }/${{ needs.set_vals.outputs.image_name }}"  
   deploy:
     runs-on: ubuntu-latest
     needs: [build, check_secrets, set_vals]
