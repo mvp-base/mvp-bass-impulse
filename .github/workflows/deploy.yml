@@ -50,14 +50,14 @@ jobs:
       image_name: ${{ steps.image_name.outputs.image }}
     steps:
       - name: Tag Name
-      - id: tag  
+        id: tag  
         run: |
           REF="${{ github.ref }}" 
           TAG_NAME="${REF##*/}"
           echo "tag=${TAG_NAME}" >> "$GITHUB_OUTPUT"
 
       - name: Image Name
-      - id: image_name  
+        id: image_name  
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
           LOWER_REPO_NAME=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')
@@ -66,12 +66,9 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    needs: [check_secrets, set_vals, check_secrets]
+    needs: [check_secrets, set_vals]
 
     steps:
-      - env:
-        TAG: ${{ needs.set_vals.outputs.tag }}
-        IMAGE_NAME: ${{ needs.set_vals.outputs.image_name }}
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -83,23 +80,18 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t "$IMAGE_NAME" .
+          docker build -t "${{ needs.set_vals.outputs.image_name }}" .
 
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push "$IMAGE_NAME"
+          docker push "${{ needs.set_vals.outputs.image_name }}"
 
   deploy:
     runs-on: ubuntu-latest
     needs: [build, check_secrets, set_vals]
 
     steps: 
-      - env:
-          TAG: ${{ needs.set_vals.outputs.tag }}
-          IMAGE_NAME: ${{ needs.set_vals.outputs.image_name }}
-        run: echo "$TAG $IMAGE_NAME"
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -118,7 +110,7 @@ jobs:
             INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
 
             echo "Pulling Docker image: $IMAGE_NAME"
-            docker pull "${IMAGE_NAME}"
+            docker pull "${{ needs.set_vals.outputs.image_name }}"
 
             echo "Checking if container $CONTAINER_NAME exists..."
             if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
@@ -138,5 +130,5 @@ jobs:
               -p "$EXPOSED_PORT:$INTERNAL_PORT" \
               --name "$CONTAINER_NAME" \
               $ENV_VARS \
-              "${IMAGE_NAME}"
+              "${{ needs.set_vals.outputs.image_name }}"
 
