@@ -114,7 +114,7 @@ jobs:
             fi
 
             echo "Extracting APP_ environment variables..."
-            ENV_VARS=$(printenv | grep '^APP_' | awk '{print "-e " $1}')
+            ENV_VARS=$(printenv | grep '^NEXT_PUBLIC_APP_' | awk '{print "-e " $1}')
 
             echo "Running new container..."
             docker run -d \
