@@ -73,7 +73,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t "${ secrets.DOCKER_REPO }/${{ needs.set_vals.outputs.image_name }}" .
+          docker build -t "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}" .
 
 
       - name: Push Docker image to Docker Hub
