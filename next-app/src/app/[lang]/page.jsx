@@ -42,7 +42,7 @@ export default async function Home({ params }) {
   let upcomingEvent = new BassImpulseEvent(upcomingEventData);
   const upcomingEventPageId = upcomingEvent.getPageId(params.lang);
 
-  const test = process.env.APP_ENV;
+  const test = process.env.APP_TEST;
   console.log(test);
   return (
     <>

@@ -6,18 +6,14 @@ export const metadata = {
   description: 'Providing bass since 2023',
   keywords: ['bass', 'impulse', 'rave', 'music', 'dj', 'live', 'edm', 'event'],
   authors: [{ name: 'ViFi' }, { name: 'Matej' }],
-  creator: 'ViFi',
-  publisher: 'ViFi',
-  metadataBase: new URL('https://bassimpulse.com'),
+  creator: 'MatejV',
+  publisher: 'MatejV',
   alternates: {
     canonical: '/',
     languages: {
       'en': '/en',
       'cs': '/cs',
     },
-  },
-  openGraph: {
-    images: '/opengraph-image.png',
   },
 };
 
