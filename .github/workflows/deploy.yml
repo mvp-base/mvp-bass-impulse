@@ -86,21 +86,21 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           # Debugging the GITHUB_REF value
-          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "GITHUB_REF=${{ github.ref }}"
           
           # If GITHUB_REF is set, extract TAG_NAME
-          if [ -n "${GITHUB_REF}" ]; then
-            TAG_NAME="${GITHUB_REF#refs/tags/}"
+          if [ -n "${{ github.ref }}" ]; then
+            TAG_NAME="${{ github.ref#refs/tags/ }}"
           else
             echo "Error: GITHUB_REF is not set"
             exit 1
           fi
-          
+
           echo "TAG_NAME=${TAG_NAME}"
-          
+
           # Construct the Docker image name
-          IMAGE_NAME="${{ secrets.DOCKER_REPO }}/${{ github.event.repository.name }}:${TAG_NAME}"
-          CONTAINER_NAME="$(basename "${{ github.event.repository.name }}")"
+          IMAGE_NAME="${{ secrets.DOCKER_REPO }}/${{ github.repository }}:${TAG_NAME}"
+          CONTAINER_NAME="$(basename "${{ github.repository }}")"
           EXPOSED_PORT="${{ secrets.EXPOSED_PORT }}"
           INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
 
