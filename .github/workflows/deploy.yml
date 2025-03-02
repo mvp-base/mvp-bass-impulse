@@ -78,34 +78,39 @@ jobs:
     needs: [build, check_secrets]
 
     steps:
-      - name: Prepare environment variables
-        run: |
-          echo "" > .env.temp
-          for VAR in $(printenv | grep '^APP_' | cut -d= -f1); do
-            echo "$VAR=${!VAR}" >> .env.temp
-          done
+    - name: SSH to server and deploy
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: matejv
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          IMAGE_NAME="${{ secrets.DOCKER_REPO }}/${{ github.event.repository.name }}:${TAG_NAME}"
+          CONTAINER_NAME="$(basename "${{ github.event.repository.name }}")"
+          EXPOSED_PORT="${{ secrets.EXPOSED_PORT }}"
+          INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
 
-      - name: SSH to server and deploy
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: matejv
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            TAG_NAME="${GITHUB_REF#refs/tags/}"
-            IMAGE_NAME="${{ secrets.DOCKER_REPO }}/${{ github.event.repository.name }}:${TAG_NAME}"
-            CONTAINER_NAME="$(basename "${{ github.event.repository.name }}")"
-            EXPOSED_PORT="${{ secrets.EXPOSED_PORT }}"
-            INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
+          echo "Pulling Docker image: $IMAGE_NAME"
+          docker pull "${IMAGE_NAME}"
 
-            docker pull "${IMAGE_NAME}"
-            docker stop "$CONTAINER_NAME" || true
-            docker rm "$CONTAINER_NAME" || true
+          echo "Checking if container $CONTAINER_NAME exists..."
+          if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
+            echo "Stopping and removing existing container..."
+            docker stop "$CONTAINER_NAME"
+            docker rm "$CONTAINER_NAME"
+          else
+            echo "No existing container found. Skipping stop and remove."
+          fi
 
-            docker run -d \
-              --restart unless-stopped \
-              -p "$EXPOSED_PORT:$INTERNAL_PORT" \
-              --name "$CONTAINER_NAME" \
-              --env-file .env.temp \
-              "${IMAGE_NAME}"
+          echo "Extracting APP_ environment variables..."
+          ENV_VARS=$(printenv | grep '^APP_' | awk '{print "-e " $1}')
+
+          echo "Running new container..."
+          docker run -d \
+            --restart unless-stopped \
+            -p "$EXPOSED_PORT:$INTERNAL_PORT" \
+            --name "$CONTAINER_NAME" \
+            $ENV_VARS \
+            "${IMAGE_NAME}"
 
