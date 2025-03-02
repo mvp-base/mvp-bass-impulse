@@ -42,6 +42,8 @@ export default async function Home({ params }) {
   let upcomingEvent = new BassImpulseEvent(upcomingEventData);
   const upcomingEventPageId = upcomingEvent.getPageId(params.lang);
 
+  const test = process.env.APP_ENV;
+
   return (
     <>
       <div className="relative -top-[92.8px] left-0 w-full h-full overflow-y-auto overflow-x-hidden">
@@ -100,6 +102,7 @@ export default async function Home({ params }) {
                 </div>
               </div>
             </div>
+            ${test}
           </div>
         </Body>
       </div>
