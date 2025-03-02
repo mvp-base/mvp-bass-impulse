@@ -122,5 +122,5 @@ jobs:
               -p "$EXPOSED_PORT:$INTERNAL_PORT" \
               --name "$CONTAINER_NAME" \
               $ENV_VARS \
-              "${{ needs.set_vals.outputs.image_name }}"
+              "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}"
 
