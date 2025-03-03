@@ -118,6 +118,6 @@ jobs:
               --restart unless-stopped \
               -p "$EXPOSED_PORT:$INTERNAL_PORT" \
               --name "$CONTAINER_NAME" \
-              -e NEXT_PUBLIC_APP_TEST="${{NEXT_PUBLIC_APP_TEST}}"  \
+              -e NEXT_PUBLIC_APP_TEST="${{ secrets.NEXT_PUBLIC_APP_TEST }}"  \
               "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}"
 
