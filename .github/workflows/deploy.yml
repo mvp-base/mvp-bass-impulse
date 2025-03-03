@@ -113,14 +113,11 @@ jobs:
               echo "No existing container found. Skipping stop and remove."
             fi
 
-            echo "Extracting APP_ environment variables..."
-            ENV_VARS=$(printenv | grep '^NEXT_PUBLIC_APP_' | awk '{print "-e " $1}')
-
             echo "Running new container..."
             docker run -d \
               --restart unless-stopped \
               -p "$EXPOSED_PORT:$INTERNAL_PORT" \
               --name "$CONTAINER_NAME" \
-              $ENV_VARS \
+              -e NEXT_PUBLIC_APP_TEST="${{NEXT_PUBLIC_APP_TEST}}"  \
               "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}"
 
