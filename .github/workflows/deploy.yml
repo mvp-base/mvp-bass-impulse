@@ -1,123 +1,15 @@
-name: Create Image and Push to Production
+name: Deploy Bass Impulse to production
 
 on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
 
 jobs:
-  check_secrets:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check required secrets
-        run: |
-          if [[ -z "${{ secrets.EXPOSED_PORT }}" ]]; then
-            echo "❌ Missing required secret: EXPOSED_PORT"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.INTERNAL_PORT }}" ]]; then
-            echo "❌ Missing required secret: INTERNAL_PORT"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.DOCKER_REPO }}" ]]; then
-            echo "❌ Missing required secret: DOCKER_REPO"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.SERVER_IP }}" ]]; then
-            echo "❌ Missing required secret: SERVER_IP"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]]; then
-            echo "❌ Missing required secret: SSH_PRIVATE_KEY"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.DOCKER_USERNAME }}" ]]; then
-            echo "❌ Missing required secret: DOCKER_USERNAME"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.DOCKER_PASSWORD }}" ]]; then
-            echo "❌ Missing required secret: DOCKER_PASSWORD"
-            exit 1
-          fi
-          echo "✅ All required secrets are present!"
-
-  set_vals:
-    runs-on: ubuntu-latest
-    outputs:
-      image_name: ${{ steps.image_name.outputs.image }}
-    steps:
-    - name: Image Name
-      id: image_name
-      run: |
-        REF="${{ github.ref }}"
-        TAG_NAME="${REF##*/}"
-        REPO_NAME="${{ github.event.repository.name }}"
-        LOWER_REPO_NAME=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')
-        IMAGE_NAME="${LOWER_REPO_NAME}:${TAG_NAME}"
-        echo "image=${IMAGE_NAME}" >> "$GITHUB_OUTPUT"
-  build:
-    runs-on: ubuntu-latest
-    needs: [check_secrets, set_vals]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build Docker image
-        run: |
-          docker build -t "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}" .
-
-
-      - name: Push Docker image to Docker Hub
-        run: |
-          docker push "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}"  
   deploy:
-    runs-on: ubuntu-latest
-    needs: [build, check_secrets, set_vals]
-
-    steps: 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      
-      - name: SSH to server and deploy
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: matejv
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            CONTAINER_NAME="${{ github.event.repository.name }}"
-            EXPOSED_PORT="${{ secrets.EXPOSED_PORT }}"
-            INTERNAL_PORT="${{ secrets.INTERNAL_PORT }}"
-
-            echo "Pulling Docker image: $IMAGE_NAME"
-            docker pull "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}"
-
-            echo "Checking if container $CONTAINER_NAME exists..."
-            if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
-              echo "Stopping and removing existing container..."
-              docker stop "$CONTAINER_NAME"
-              docker rm "$CONTAINER_NAME"
-            else
-              echo "No existing container found. Skipping stop and remove."
-            fi
-
-            echo "Running new container..."
-            docker run -d \
-              --restart unless-stopped \
-              -p "$EXPOSED_PORT:$INTERNAL_PORT" \
-              --name "$CONTAINER_NAME" \
-              -e NEXT_PUBLIC_APP_TEST="${{ secrets.NEXT_PUBLIC_APP_TEST }}"  \
-              "${{ secrets.DOCKER_REPO }}/${{ needs.set_vals.outputs.image_name }}"
-
+    uses: vanm30/mv-actions/.github/workflows/deploy.yml@main
+    with:
+      env-vars: |
+        {
+          "NEXT_PUBLIC_APP_TEST": "${{ secrets.NEXT_PUBLIC_APP_TEST }}"
+        }
