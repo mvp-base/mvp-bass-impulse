@@ -7,9 +7,6 @@ on:
 
 jobs:
   deploy:
-    uses: vanm30-portfolio/actions/.github/workflows/deploy.yml@main
+    uses: vanm30-portfolio/actions/.github/workflows/deploy.yml@debug-secrets
     with:
-      env-vars: |
-        {
-          "NEXT_PUBLIC_APP_TEST": secrets.NEXT_PUBLIC_APP_TEST
-        }
+      config: '{"app": "website"}'
