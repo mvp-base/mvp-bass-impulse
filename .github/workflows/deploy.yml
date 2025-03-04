@@ -6,6 +6,10 @@ on:
       - 'v*'
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "NEXT_PUBLIC_APP_TEST is ${{ secrets.NEXT_PUBLIC_APP_TEST }}"
   deploy:
     uses: vanm30-portfolio/actions/.github/workflows/deploy.yml@debug-secrets
     with:
