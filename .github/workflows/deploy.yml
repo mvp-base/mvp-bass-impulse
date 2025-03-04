@@ -11,5 +11,5 @@ jobs:
     with:
       env-vars: |
         {
-          "NEXT_PUBLIC_APP_TEST": "${{ secrets.NEXT_PUBLIC_APP_TEST }}"
+          "NEXT_PUBLIC_APP_TEST": secrets.NEXT_PUBLIC_APP_TEST
         }
