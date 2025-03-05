@@ -1,14 +1,37 @@
 {
   "home": {
-    "bio1": "We are a young collective creating a new community in the Czech Republic. This is not something you have ever seen before. This is something completely new."
+    "musicHeading": "DIVE IN",
+    "listen": "Listen now"
   },
   "events": {
-    "transition": "EVENTS",
-    "heading": "Events"
+    "title": "Events",
+    "upcoming": "UPCOMING",
+    "past": "PAST",
+    "eventData": [
+      {
+        "id": 1,
+        "date": "2025-03-15",
+        "venue": "Prague Exhibition Center",
+        "links": ["https://example.com/event-details"],
+        "title_en": "Spring Art Festival",
+        "title_cs": "Jarní umělecký festival",
+        "description_en": "A vibrant celebration of contemporary art and culture.",
+        "description_cs": "A lively celebration of contemporary art and culture.",
+        "content_en": "This event features renowned artists from around the world...",
+        "content_cs": "This event presents renowned artists from all over the world...",
+        "createdAt": "2025-02-24T12:00:00Z",
+        "photos": ["photo1.jpg", "photo2.jpg"],
+        "video": "event_highlight.mp4",
+        "cover": "/public/images/1-photo.jpg",
+        "aws_folder": "events/spring-art-festival-2025"
+      },
+      {
+        "id": 2
+      }
+    ]
   },
   "contact": {
-    "transition": "CONTACT US",
-    "heading": "Send a message",
+    "title": "Send a message",
     "name": "Full name",
     "namePlaceholder": "John Smith",
     "email": "Email address",
@@ -17,5 +40,11 @@
     "messagePlaceholder": "Write a message",
     "copy": "Send me a copy",
     "send": "Send"
+  },
+  "about": {
+    "title": "ABOUT",
+    "heading": "This is",
+    "bio": "We are a young collective creating a new community in the Czech Republic. This is not something you have ever seen before. This is something completely new."
   }
 }
+

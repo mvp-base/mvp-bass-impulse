@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Body from '@/utils/Body';
-import SpotifyFrame from '@/components/SpotifyFrame';
 import HomeAnimation from '@/utils/HomeAnimation';
 import BassImpulseEvent from 'src/models/BassImpulseEvent';
 import { Suspense } from 'react';
@@ -9,6 +8,7 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import bg from 'public/images/home-bg.webp';
 import dash from 'public/icons/dash.svg';
 import diveinto from 'public/images/diveinto.png';
+import { getDictionary } from 'src/dictionaries';
 
 export async function generateMetadata({ params }, parent) {
   const languages = (await parent).alternates?.languages || [];
@@ -22,23 +22,8 @@ export async function generateMetadata({ params }, parent) {
 }
 
 export default async function Home({ params }) {
-  const upcomingEventData = {
-    id: 1,
-    date: "2025-03-15",
-    venue: "Prague Exhibition Center",
-    links: ["https://example.com/event-details"],
-    title_en: "Spring Art Festival",
-    title_cs: "Jarní umělecký festival",
-    description_en: "A vibrant celebration of contemporary art and culture.",
-    description_cs: "Živá oslava současného umění a kultury.",
-    content_en: "This event features renowned artists from around the world...",
-    content_cs: "Tato událost představuje renomované umělce z celého světa...",
-    createdAt: "2025-02-24T12:00:00Z",
-    photos: ["photo1.jpg", "photo2.jpg"],
-    video: "event_highlight.mp4",
-    cover: "cover_image.jpg",
-    aws_folder: "events/spring-art-festival-2025"
-  }
+  const dict = await getDictionary(params.lang);
+  const upcomingEventData = dict.events.eventData[0];
   let upcomingEvent = new BassImpulseEvent(upcomingEventData);
   const upcomingEventPageId = upcomingEvent.getPageId(params.lang);
 
@@ -81,10 +66,10 @@ export default async function Home({ params }) {
             <Image src={diveinto} alt="dive into" className="size-[400px]" loading="eager" />
             <div className="flex flex-col flex-none items-center md:items-start text-center md:text-left font-display gap-8">
               <p className="uppercase text-5xl md:text-7xl text-black [text-shadow:0px_0px_25px_#f96167]  [-webkit-text-stroke:2px_#f96167] md:[-webkit-text-stroke:4px_#f96167]">
-                Dive Into <br /> Our Sound
+                {dict.home.musicHeading}
               </p>
               <div className="flex flex-col gap-2 items-center">
-                <p className="text-[#A6ADBA] text-3xl md:text-4xl">LISTEN NOW</p>
+                <p className="text-[#A6ADBA] text-3xl md:text-4xl">{dict.home.listen}</p>
                 <div className="flex flex-row justify-center gap-4">
                   <Image src={dash} loading="eager" alt="dash" />
                   <a
@@ -102,7 +87,6 @@ export default async function Home({ params }) {
               </div>
             </div>
           </div>
-          {test}
         </Body>
       </div>
     </>

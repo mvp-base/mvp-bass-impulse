@@ -6,7 +6,6 @@ export const metadata = {
   description: 'Providing bass since 2023',
   keywords: ['bass', 'impulse', 'rave', 'music', 'dj', 'live', 'edm', 'event'],
   authors: [{ name: 'ViFi' }, { name: 'Matej' }],
-  creator: 'MatejV',
   publisher: 'MatejV',
   alternates: {
     canonical: '/',

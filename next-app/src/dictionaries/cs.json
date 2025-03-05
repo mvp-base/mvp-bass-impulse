@@ -1,16 +1,39 @@
 {
   "home": {
-    "bio1": "Projekt, který založila skupina kamarádů se stejným zapálením do Drum and Bass. Brzy se k nim připojili stejně smýšlející DJs, kteří pomohli tento projekt vylepšit svými zkušenostmi.",
+    "musicHeading": "NECO OD NAS",
+    "listen": "Puslechni si",
     "bio2": "Už od začátku měli jasno, že chtějí být jiní než ostatní, a to selekcí headlinerů, subžánrů DnB a klubů.",
     "bio3": "Nyní tvoří originální akce podle svých představ. Na každé akci od Bass Impulse máš jistotu šílených a nevšedních mixů, zajímavých headlinerů, originálních songů ze světa i z vlastní produkce a neutuchající zábavy."
   },
   "events": {
-    "transition": "UDÁLOSTI",
-    "heading": "Události"
+    "title": "Události",
+    "upcoming": "NADCHÁZEJÍCÍ",
+    "past": "MINULÉ",
+    "eventData": [
+      {
+        "id": 1,
+        "date": "2025-03-15",
+        "venue": "Prague Exhibition Center",
+        "links": ["https://example.com/event-details"],
+        "title_en": "Spring Art Festival",
+        "title_cs": "Jarní umělecký festival",
+        "description_en": "A vibrant celebration of contemporary art and culture.",
+        "description_cs": "Živá oslava současného umění a kultury.",
+        "content_en": "This event features renowned artists from around the world...",
+        "content_cs": "Tato událost představuje renomované umělce z celého světa...",
+        "createdAt": "2025-02-24T12:00:00Z",
+        "photos": ["photo1.jpg", "photo2.jpg"],
+        "video": "event_highlight.mp4",
+        "cover": "/public/images/1-photo.jpg",
+        "aws_folder": "events/spring-art-festival-2025"
+      },
+      {
+        "id": 2
+      }
+    ]
   },
   "contact": {
-    "transition": "KONTAKTUJ NÁS",
-    "heading": "Napiš nám zprávu",
+    "title": "Napiš nám zprávu",
     "name": "Celé jméno",
     "namePlaceholder": "Jan Novák",
     "email": "Email",
@@ -19,5 +42,10 @@
     "messagePlaceholder": "Napiš zprávu",
     "copy": "Chci kopii",
     "send": "Odeslat"
+  },
+  "about": {
+    "title": "O NÁS",
+    "heading": "Toto je",
+    "bio": "Projekt, který založila skupina kamarádů se stejným zapálením do Drum and Bass. Brzy se k nim připojili stejně smýšlející DJs, kteří pomohli tento projekt vylepšit svými zkušenostmi."
   }
 }

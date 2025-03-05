@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import Body from '@/utils/Body';
 import Countdown from '@/components/Countdown';
-import Carousel from '@/components/carousel/Carousel';
 import BassImpulseEvent from 'src/models/BassImpulseEvent';
-import { Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSoundcloud } from '@fortawesome/free-brands-svg-icons';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
@@ -11,7 +9,7 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import photo from 'public/images/1-photo.png';
-
+import { getDictionary } from 'src/dictionaries';
 
 const ICONS = {
   instagram: faInstagram,
@@ -21,30 +19,12 @@ const ICONS = {
   facebook: faFacebook,
 };
 
-const CAROUSEL_OPTIONS = {
-  loop: true,
-  skipSnaps: 'true',
-};
 
 export default async function EventPage({ params }) {
-  const eventData = {
-    id: 1,
-    date: "2025-03-15",
-    venue: "Prague Exhibition Center",
-    links: ["https://example.com/event-details"],
-    title_en: "Spring Art Festival",
-    title_cs: "Jarní umělecký festival",
-    description_en: "A vibrant celebration of contemporary art and culture.",
-    description_cs: "Živá oslava současného umění a kultury.",
-    content_en: "This event features renowned artists from around the world...",
-    content_cs: "Tato událost představuje renomované umělce z celého světa...",
-    createdAt: "2025-02-24T12:00:00Z",
-    photos: ["photo1.jpg", "photo2.jpg"],
-    video: "event_highlight.mp4",
-    cover: "/public/images/1-photo.jpg",
-    aws_folder: "events/spring-art-festival-2025"
-  }
-  let event = new BassImpulseEvent(eventData);
+  const dict = await getDictionary(params.lang);
+
+  let eventData = dict.events.eventData[0];
+  const event = new BassImpulseEvent(eventData);
   const content = params.lang == 'en' ? event.contentEn : event.contentCs;
   const title = params.lang == 'en' ? event.titleEn : event.titleCs;
   const showCountdown = event.date > new Date();

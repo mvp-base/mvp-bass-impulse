@@ -22,7 +22,7 @@ export default async function Contact({ params: { lang } }) {
   const dict = await getDictionary(lang);
   return (
     <Body
-      headline={dict.contact.heading.toUpperCase()}
+      headline={dict.contact.title.toUpperCase()}
       color1Hex="#8777A5"
       color2Hex="#CE7492"
     >
@@ -32,7 +32,6 @@ export default async function Contact({ params: { lang } }) {
           href="mailto:contact@bassimpulse.com"
         >
           <FontAwesomeIcon className="mr-2" icon={faEnvelope} />
-          <p>contact@bassimpulse.com</p>
         </a>
         <ContactForm data={dict} />
       </div>
