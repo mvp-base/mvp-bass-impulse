@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function AnimatedText01() {
+export default function AnimatedText02(props) {
   return (
     <div
       key="ant02"
@@ -13,7 +13,7 @@ export default function AnimatedText01() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4 }}
       >
-        NEVER
+        {props.text1}
       </motion.p>
       <motion.p
         key="ant0202"
@@ -22,7 +22,7 @@ export default function AnimatedText01() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.25 }}
       >
-        SEEN
+        {props.text2}
       </motion.p>
       <motion.p
         key="ant0203"
@@ -31,7 +31,7 @@ export default function AnimatedText01() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        BEFORE
+        {props.text3}
       </motion.p>
     </div>
   );

@@ -30,7 +30,7 @@ export default async function About({ params: { lang } }) {
           <div className="flex gap-2 md:gap-4">
             <h1>{dict.about.heading}</h1>
             <h2>
-              <AnimatedAboutText />
+              <AnimatedAboutText dict={dict} />
             </h2>
           </div>
           <div className="px-4 max-w-[450px] min-h-[160px]">

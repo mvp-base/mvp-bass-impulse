@@ -8,11 +8,10 @@ import AnimatedText01 from '@/components/animations/AnimatedText01';
 import AnimatedText02 from '@/components/animations/AnimatedText02';
 import AnimatedText03 from '@/components/animations/AnimatedText03';
 import AnimatedCountdown from '@/components/animations/AnimatedCountdown';
-import Image from 'next/image';
 
 export default function HomeAnimation(props) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const dict = props.dict;
   const items = useMemo(
     () => [
       {
@@ -20,15 +19,15 @@ export default function HomeAnimation(props) {
         delay: 4000,
       },
       {
-        content: <AnimatedText01 />,
+        content: <AnimatedText01 text1={dict.home.slogan1[0]} text2={dict.home.slogan1[1]} text3={dict.home.slogan1[2]} />,
         delay: 3000,
       },
       {
-        content: <AnimatedText02 />,
+        content: <AnimatedText02 text1={dict.home.slogan2[0]} text2={dict.home.slogan2[1]} text3={dict.home.slogan3[2]} />,
         delay: 3000,
       },
       {
-        content: <AnimatedText03 />,
+        content: <AnimatedText03 text1={dict.home.slogan3[0]} text2={dict.home.slogan3[1]} text3={dict.home.slogan3[2]} text4={dict.home.slogan3[3]} />,
         delay: 4000,
       },
       {

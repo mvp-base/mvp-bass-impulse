@@ -3,7 +3,10 @@
     "musicHeading": "NECO OD NAS",
     "listen": "Puslechni si",
     "bio2": "Už od začátku měli jasno, že chtějí být jiní než ostatní, a to selekcí headlinerů, subžánrů DnB a klubů.",
-    "bio3": "Nyní tvoří originální akce podle svých představ. Na každé akci od Bass Impulse máš jistotu šílených a nevšedních mixů, zajímavých headlinerů, originálních songů ze světa i z vlastní produkce a neutuchající zábavy."
+    "bio3": "Nyní tvoří originální akce podle svých představ. Na každé akci od Bass Impulse máš jistotu šílených a nevšedních mixů, zajímavých headlinerů, originálních songů ze světa i z vlastní produkce a neutuchající zábavy.",
+    "slogan1": ["NĚCO", "ÚPLNĚ", "JINÉHO"],
+    "slogan2": ["TO", "JSTE", "NEZAŽILI"],
+    "slogan3": ["ZAPOMEŇTE", "TO", "CO", "ZNÁTE"]
   },
   "events": {
     "title": "Události",
@@ -46,6 +49,7 @@
   "about": {
     "title": "O NÁS",
     "heading": "Toto je",
-    "bio": "Projekt, který založila skupina kamarádů se stejným zapálením do Drum and Bass. Brzy se k nim připojili stejně smýšlející DJs, kteří pomohli tento projekt vylepšit svými zkušenostmi."
+    "bio": "Projekt, který založila skupina kamarádů se stejným zapálením do Drum and Bass. Brzy se k nim připojili stejně smýšlející DJs, kteří pomohli tento projekt vylepšit svými zkušenostmi.",
+    "aboutTextArray": ["Globalni", "Underground", "Bass Impulse"]
   }
 }

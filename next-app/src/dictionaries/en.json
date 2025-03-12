@@ -1,7 +1,10 @@
 {
   "home": {
     "musicHeading": "DIVE IN",
-    "listen": "Listen now"
+    "listen": "Listen now",
+    "slogan1": ["SOMETHING", "COMPLETELY", "DIFFERENT"],
+    "slogan2": ["NEVER", "SEEN", "BEFORE"],
+    "slogan3": ["FORGET", "EVERYTHING", "YOU", "KNOW"]
   },
   "events": {
     "title": "Events",
@@ -44,7 +47,8 @@
   "about": {
     "title": "ABOUT",
     "heading": "This is",
-    "bio": "We are a young collective creating a new community in the Czech Republic. This is not something you have ever seen before. This is something completely new."
+    "bio": "We are a young collective creating a new community in the Czech Republic. This is not something you have ever seen before. This is something completely new.",
+    "aboutTextArray": ["International", "Underground", "Bass Impulse"]
   }
 }
 

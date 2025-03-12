@@ -2,7 +2,11 @@
 
 import { TypeAnimation } from 'react-type-animation';
 
-export default function AnimatedAbooutText() {
+export default function AnimatedAbooutText({ params }) {
+  const dict = params.dict;
+  const DELAY = 3000;
+  const textArray = dict.about.aboutTextArray.flatMap(word => [word, DELAY]);
+
   return (
     <p>
       <span
@@ -10,14 +14,7 @@ export default function AnimatedAbooutText() {
         style={{ WebkitTextStroke: '1px white' }}
       >
         <TypeAnimation
-          sequence={[
-            'International.',
-            3000,
-            'Underground.',
-            3000,
-            'Bass Impulse.',
-            3000,
-          ]}
+          sequence={textArray}
           wrapper="span"
           speed={60}
           repeat={Infinity}
