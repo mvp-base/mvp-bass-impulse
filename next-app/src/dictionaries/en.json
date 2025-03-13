@@ -1,4 +1,25 @@
 {
+  "general": {
+    "crewName": "Bass Impulse",
+    "mediaLink": "PRESS & MEDIA KIT",
+    "pages": [
+      {
+        "name": "EVENTS",
+        "icon": "faCalendarDays",
+        "link": "/events"
+      },
+      {
+        "name": "ABOUT",
+        "icon": "faUserGroup",
+        "link": "/about"
+      },
+      {
+        "name": "CONTACT",
+        "icon": "faEnvelope",
+        "link": "/contact"
+      }
+    ]
+  },
   "home": {
     "musicHeading": "DIVE IN",
     "listen": "Listen now",
@@ -49,6 +70,9 @@
     "heading": "This is",
     "bio": "We are a young collective creating a new community in the Czech Republic. This is not something you have ever seen before. This is something completely new.",
     "aboutTextArray": ["International", "Underground", "Bass Impulse"]
+  },
+  "footer": {
+    "middleText": "Providing bass since 2023",
+    "pressKit": "PRESS & MEDIA KIT"
   }
 }
-

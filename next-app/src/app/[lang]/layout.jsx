@@ -1,6 +1,6 @@
 import 'src/app/globals.css';
 import MainLayout from '@/utils/MainLayout';
-
+import { getDictionary } from 'src/dictionaries';
 export const metadata = {
   title: 'Bass Impulse',
   description: 'Providing bass since 2023',
@@ -20,11 +20,12 @@ export async function generateStaticParams() {
   return [{ lang: 'cs' }, { lang: 'en' }];
 }
 
-export default function RootLayout({ children, params }) {
+export default async function RootLayout({ children, params }) {
+  const dict = await getDictionary(params.lang);
   return (
     <html lang={params.lang}>
       <body>
-        <MainLayout>{children}</MainLayout>
+        <MainLayout dict={dict}>{children}</MainLayout>
       </body>
     </html>
   );

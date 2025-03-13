@@ -1,8 +1,6 @@
 import ContactForm from '@/components/ContactForm';
 import Body from '@/utils/Body';
 import { getDictionary } from 'src/dictionaries';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 export async function generateMetadata({ params }) {
   return {
@@ -26,13 +24,7 @@ export default async function Contact({ params: { lang } }) {
       color1Hex="#8777A5"
       color2Hex="#CE7492"
     >
-      <div className="flex flex-col place-items-center">
-        <a
-          className="flex flex-row w-fit place-items-center m-5"
-          href="mailto:contact@bassimpulse.com"
-        >
-          <FontAwesomeIcon className="mr-2" icon={faEnvelope} />
-        </a>
+      <div className="flex flex-col place-items-center w-[85%] md:w-[35%]">
         <ContactForm data={dict} />
       </div>
     </Body>

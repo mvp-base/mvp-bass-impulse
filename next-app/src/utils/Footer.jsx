@@ -12,6 +12,7 @@ import {
 import pipe from 'public/icons/pipe.svg';
 
 const Footer = React.forwardRef(function Footer(props, ref) {
+  const dict = props.dict
   return (
     <footer
       ref={ref}
@@ -70,12 +71,12 @@ const Footer = React.forwardRef(function Footer(props, ref) {
         </nav>
         <a href="https://www.google.com" target="_blank">
           <p className="font-display hover-effect pt-3 md:pt-0">
-            PRESS & MEDIA KIT
+            {dict.footer.pressKit}
           </p>
         </a>
       </div>
       <div className="self-stretch bg-black-80 flex flex-row items-center justify-center gap-2 py-1 md:py-2">
-        <p>Providing bass since 2023</p>
+        <p>{dict.footer.middleText}</p>
         <Image
           height={20}
           width={2}

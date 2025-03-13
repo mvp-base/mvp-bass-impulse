@@ -1,4 +1,25 @@
 {
+  "general": {
+    "crewName": "Bass Impulse",
+    "mediaLink": "PRO MÉDIA",
+    "pages": [
+      {
+        "name": "UDÁLOSTI",
+        "icon": "faCalendarDays",
+        "link": "/events"
+      },
+      {
+        "name": "O NÁS",
+        "icon": "faUserGroup",
+        "link": "/about"
+      },
+      {
+        "name": "KONTAKT",
+        "icon": "faEnvelope",
+        "link": "/contact"
+      }
+    ]
+  },
   "home": {
     "musicHeading": "NECO OD NAS",
     "listen": "Puslechni si",
@@ -51,5 +72,9 @@
     "heading": "Toto je",
     "bio": "Projekt, který založila skupina kamarádů se stejným zapálením do Drum and Bass. Brzy se k nim připojili stejně smýšlející DJs, kteří pomohli tento projekt vylepšit svými zkušenostmi.",
     "aboutTextArray": ["Globalni", "Underground", "Bass Impulse"]
+  },
+  "footer": {
+    "middleText": "Hrajem pecky od roku 2023",
+    "pressKit": "ZDROJE PRO MÉDIA"
   }
 }

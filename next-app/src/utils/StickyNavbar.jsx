@@ -5,7 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { GetNavbarContent } from './Navbar';
 
 //extends Navbar.jsx
-export default function StickyNavbar({ mainRef }) {
+export default function StickyNavbar({ mainRef, dict }) {
   const [belowOffset, setBelowOffset] = useState(false);
   const navbarAnimation = useAnimation();
 
@@ -26,15 +26,14 @@ export default function StickyNavbar({ mainRef }) {
 
   return (
     <motion.div
-      className={`${
-        belowOffset
+      className={`${belowOffset
           ? 'sticky z-50 top-0 w-full flex flex-row items-center justify-between py-4 px-8 hidden md:block'
           : 'hidden'
-      }`}
+        }`}
       animate={navbarAnimation}
     >
       <div className="flex items-center justify-between bg-black border-2 border-white py-2 px-4 w-full relative">
-        <GetNavbarContent />
+        <GetNavbarContent dict={dict} />
       </div>
     </motion.div>
   );

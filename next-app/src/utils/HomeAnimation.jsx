@@ -23,7 +23,7 @@ export default function HomeAnimation(props) {
         delay: 3000,
       },
       {
-        content: <AnimatedText02 text1={dict.home.slogan2[0]} text2={dict.home.slogan2[1]} text3={dict.home.slogan3[2]} />,
+        content: <AnimatedText02 text1={dict.home.slogan2[0]} text2={dict.home.slogan2[1]} text3={dict.home.slogan2[2]} />,
         delay: 3000,
       },
       {

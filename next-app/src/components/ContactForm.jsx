@@ -1,55 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-
 export default function ContactForm({ data }) {
-  const [loading, setLoading] = useState(false);
-  let checked = false;
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-
-    const formData = new FormData(e.target);
-    formData.append('checked', checked);
-
-    try {
-      const response = await fetch('/api/send-mail', {
-        method: 'post',
-        body: formData,
-      });
-      setLoading(false);
-      if (!response.ok) {
-        console.log('falling over');
-        throw new Error(`response status: ${response.status}`);
-      }
-      document.forms['contact'].reset();
-
-      const responseData = await response.json();
-      console.log(responseData['message']);
-
-      toast('Message sent successfully', {
-        hideProgressBar: false,
-        autoClose: 2000,
-        type: 'success',
-        position: 'bottom-right',
-      });
-    } catch (err) {
-      console.error(err);
-      alert('Error, please try resubmitting the form');
-    }
-  }
-
-  function handleChecked() {
-    checked = checked ? false : true;
-  }
 
   return (
     <form
       id="contact"
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-5 items-center"
+      className="flex flex-col gap-5 items-center w-full"
     >
       <div className="flex flex-col w-full gap-5">
         <div>
@@ -101,7 +57,6 @@ export default function ContactForm({ data }) {
           <span className="label-text">{data.contact.copy}</span>
           <input
             id="sendCopy"
-            onClick={handleChecked}
             type="checkbox"
             className="checkbox accent-red"
           />
@@ -110,7 +65,7 @@ export default function ContactForm({ data }) {
       <button
         type="submit"
         disabled={true}
-        className="btn btn-primary w-full">Send</button>
+        className="btn btn-primary w-full">{data.contact.send}</button>
     </form>
   );
 }

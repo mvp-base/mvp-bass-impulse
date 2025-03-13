@@ -20,7 +20,7 @@ export function getContentHeight() {
   return windowHeight - navbarHeight - footerHeight;
 }
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, dict }) {
   const mainRef = useRef();
   const navbarRef = useRef();
   const footerRef = useRef();
@@ -39,16 +39,16 @@ export default function MainLayout({ children }) {
       style={{ backgroundImage: `url(${bg.src})` }}
     >
       <Providers>
-        <Navbar ref={navbarRef} className={'navbar'} />
-        <StickyNavbar mainRef={mainRef} />
+        <Navbar ref={navbarRef} className={'navbar'} dict={dict} />
+        <StickyNavbar mainRef={mainRef} dict={dict} />
         <div
           id="content"
           className="flex flex-col grow justify-center justify-items-center"
         >
           {children}
         </div>
-        <Footer iconMenuHeight={iconMenuHeight} ref={footerRef} />
-        <Menu setIconMenuHeight={setIconMenuHeight} />
+        <Footer iconMenuHeight={iconMenuHeight} ref={footerRef} dict={dict} />
+        <Menu setIconMenuHeight={setIconMenuHeight} dict={dict} />
         <div
           id="filter"
           className="absolute inset-0 bg-cover bg-fixed"

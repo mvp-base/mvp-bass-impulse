@@ -2,8 +2,8 @@
 
 import { TypeAnimation } from 'react-type-animation';
 
-export default function AnimatedAbooutText({ params }) {
-  const dict = params.dict;
+export default function AnimatedAbooutText(props) {
+  const dict = props.dict;
   const DELAY = 3000;
   const textArray = dict.about.aboutTextArray.flatMap(word => [word, DELAY]);
 
