@@ -1,0 +1,14 @@
+services:
+  mvp-bass-impulse:
+    container_name: mvp-bass-impulse
+    image: matejv30/mvp-bass-impulse:${TAG_NAME}
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - mvp-nw
+
+networks:
+  mvp-nw:
+    external: true
+
